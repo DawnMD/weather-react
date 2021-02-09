@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SeasonDisplay from "./components/SeasonDisplay";
+import Loader from "./components/Loader";
 
 class App extends Component {
   state = { lat: null, errMsg: "" };
@@ -14,7 +15,7 @@ class App extends Component {
       }
     );
   }
-  render() {
+  renderContent() {
     if (this.state.errMsg && !this.state.lat) {
       return <div>Error: {this.state.errMsg}</div>;
     } else if (!this.state.errMsg && this.state.lat) {
@@ -24,8 +25,11 @@ class App extends Component {
         </div>
       );
     } else {
-      return <div>Loading...</div>;
+      return <Loader>Fetching location...</Loader>;
     }
+  }
+  render() {
+    return <div>{this.renderContent()}</div>;
   }
 }
 
